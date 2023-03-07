@@ -7,6 +7,10 @@ const NotePage = ({history}) => {
   
   let noteId =  useParams().id
   let [note, setNote] = useState({id:0, body:"", create:"", updated:""})
+
+  useEffect(() => {
+    getNote()
+  }, [noteId])
   
   let getNote = async () => {
     if (noteId === 'new') return
@@ -17,7 +21,7 @@ const NotePage = ({history}) => {
   }
 
   let createNote = async () => {
-    fetch(`/api/notes/create`, {
+    fetch(`/api/notes/`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -27,7 +31,7 @@ const NotePage = ({history}) => {
   }
   
   let updateNote = async () => {
-      fetch(`/api/notes/${noteId}/update/`, {
+      fetch(`/api/notes/${noteId}/`, {
         method: "PUT",
         headers: {
           'Content-Type': 'application/json'
@@ -37,7 +41,7 @@ const NotePage = ({history}) => {
   }
 
   let deleteNote = async () =>{
-    fetch(`/api/notes/${noteId}/delete/`, {
+    fetch(`/api/notes/${noteId}/`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -65,11 +69,6 @@ const NotePage = ({history}) => {
     
   }
   
-
-  useEffect(() => {
-      getNote()
-  }, [noteId])
-
   return (
     <div className="note" >
     <div className="note-header">
